@@ -3,8 +3,8 @@ from functools import lru_cache
 from urllib.parse import parse_qs, urlparse, unquote
 from sklearn.model_selection import train_test_split
 import pandas as pd
-import lightgbm as gbm
-from data1_1 import *
+# import lightgbm as gbm
+from dictionaries import *
 
 
 def check_dict(type, dict):
@@ -18,36 +18,38 @@ MAX_HEADERS = 100
 
 
 def ml_vehicles():
-    df = pd.read_csv('vehicles_data_v_2.csv', index_col=0)
-    X = df.drop(['price', 'posting_date'], axis=1)
-    y = df['price']
-    x_train, x_test, y_train, y_test = train_test_split(X, y, train_size=0.8, random_state=123)
-    lgb_train = gbm.Dataset(x_train, y_train)
-    lgb_eval = gbm.Dataset(x_test, y_test)
-    params = {'metric': 'rmse'}
-    machine = gbm.train(params,
-                        lgb_train,
-                        valid_sets=lgb_eval,
-                        num_boost_round=3000,
-                        early_stopping_rounds=100,
-                        verbose_eval=100)
-    return machine
+    # df = pd.read_csv('vehicles_data_v_2.csv', index_col=0)
+    # X = df.drop(['price', 'posting_date'], axis=1)
+    # y = df['price']
+    # x_train, x_test, y_train, y_test = train_test_split(X, y, train_size=0.8, random_state=123)
+    # lgb_train = gbm.Dataset(x_train, y_train)
+    # lgb_eval = gbm.Dataset(x_test, y_test)
+    # params = {'metric': 'rmse'}
+    # machine = gbm.train(params,
+    #                     lgb_train,
+    #                     valid_sets=lgb_eval,
+    #                     num_boost_round=3000,
+    #                     early_stopping_rounds=100,
+    #                     verbose_eval=100)
+    # return machine
+    return
 
 
 def ml_real_estate():
-    df = pd.read_csv('ML_real_estate_prepared_v_5.csv', index_col=0)
-    X = df.drop(['price', 'date'], axis=1)
-    y = df['price']
-    x_train, x_test, y_train, y_test = train_test_split(X, y, train_size=0.8, random_state=123)
-    lgb_train = gbm.Dataset(x_train, y_train)
-    lgb_eval = gbm.Dataset(x_test, y_test)
-    params = {'metric': 'rmse'}
-    gbm_machine = gbm.train(params,
-                            lgb_train,
-                            valid_sets=lgb_eval,
-                            num_boost_round=5000,
-                            early_stopping_rounds=100,
-                            verbose_eval=100)
+    # df = pd.read_csv('ML_real_estate_prepared_v_5.csv', index_col=0)
+    # X = df.drop(['price', 'date'], axis=1)
+    # y = df['price']
+    # x_train, x_test, y_train, y_test = train_test_split(X, y, train_size=0.8, random_state=123)
+    # lgb_train = gbm.Dataset(x_train, y_train)
+    # lgb_eval = gbm.Dataset(x_test, y_test)
+    # params = {'metric': 'rmse'}
+    # gbm_machine = gbm.train(params,
+    #                         lgb_train,
+    #                         valid_sets=lgb_eval,
+    #                         num_boost_round=5000,
+    #                         early_stopping_rounds=100,
+    #                         verbose_eval=100)
+    gbm_machine = 0
     return gbm_machine
 
 
@@ -321,7 +323,7 @@ class MyHTTPServer:
 
 
 if __name__ == '__main__':
-    serv = MyHTTPServer('127.0.0.1', 10001, 'finodays_http')
+    serv = MyHTTPServer('127.0.0.1', 7777, 'finodays_http')
     try:
         serv.serve_forever()
     except KeyboardInterrupt:
